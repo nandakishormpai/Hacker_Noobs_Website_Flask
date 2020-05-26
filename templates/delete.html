@@ -17,14 +17,17 @@
             <h4> If you are not a developer you cannot Delete.   <a href="/posts">Click here</a>  to go back</h4>
         {% endif %}
     {% endwith %}
-    <form action='/posts/delete/{{post.id}}' method='POST'>
-        Developer id:<input type='text' name='dev_id' id='dev_id' >
+    <form action='/posts/delete/{{post.id}}' method='POST' class="form">
+        Developer id:
+        <br><input type='text' name='dev_id' id='dev_id' maxlength="10" size="72">
         <br>
-        Developer key:<input type='text' name='dev_key' id='dev_key'>
+        <br>
+        Developer key:
+        <br><input type='text' name='dev_key' id='dev_key' maxlength="10" size="72">
         <br>
         <br>
-        <input type='submit' value='Delete'>
-        &nbsp;  <a href="/posts">Go Back</a>
+        <input type='submit' class="btn btn-danger" value='Delete'>
+        &nbsp;  <a href="/posts" class="btn btn-primary">Go Back</a>
     </form>
     <hr>
 {% endblock %}

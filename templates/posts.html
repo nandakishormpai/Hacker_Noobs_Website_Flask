@@ -7,30 +7,26 @@
 {% block body %}
 <div>
     <br>
-    <h1 style="display:inline">HACKER NOOBS Projects</h1>
+    <h1 style="display:inline"><b>HACKER NOOBS Projects</b></h1>
     <a style="display:inline" class="btn btn-success float-right" href="/posts/new" >+ New Post</a>
 </div>
 
-    <hr>
-    <br>
-    <div>
-        <h1 style="display:inline">All Posts</h1>
-    </div>
-    <hr>
+    <hr style="height:2px; border-width:2px;">
     {% for post in posts %}
-        <h2>{{ post.title }}</h2>
+    <div class="content">
+        <h2 class="title"><b>{{ post.title }}</b></h2>
 
         {% if post.author %}
-            <h3>Developer: {{ post.author }}</h3>
+            <h3 style="font-size:20px;">Developer: {{ post.author }}</h3>
         {% else %}
             <h3>By: N/A</h3>
         {% endif %}
-        <a href="{{post.github}}"><img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub" style="width:40px;height:40px;"></a>
-        <i class="fa fa-github"></i>
-        <p style="white-space:pre-wrap">{{ post.content }}</p>
+        <a  href="{{post.github}}"><img src="https://pngimg.com/uploads/github/github_PNG83.png" alt="GitHub" style="width:35px;height:35px;"></a>
+        <br>
+        <p style="font-size:20px;" >{{ post.content }}</p>
         <a class="btn btn-danger" href='/posts/delete/{{post.id}}'>Delete</a>
         <a class="btn btn-primary" href='/posts/edit/{{post.id}}'>Edit</a>
-        <hr>
+    </div>
     {% endfor%}
 
 {% endblock %}

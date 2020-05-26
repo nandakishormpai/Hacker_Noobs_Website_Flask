@@ -16,21 +16,32 @@
         <h4><i>If you are not a developer you cannot upload your Project ! <a href="/posts">Click Here</a> to go back</i></h4>
     {% endif %}
     {% endwith %}
-    <form action='/posts/new' method='POST'>
-        Developer id:<input type='text' name='dev_id' id='dev_id' >
-        <br>
-        Developer key:<input type='text' name='dev_key' id='dev_key'>
-        <br>
-        Project Name: <input type='text' name='title' id='title'>
-        <br>
-        Developer: <input type='text' name='author' id='author'>
-        <br>
-        Description: <input type='text' name='content' id='content'>
-        <br>
-        Github URL: <input type='text' name='github' id='github'>
+    <form action='/posts/new' method='POST' class="form">
+        Developer id:<br>
+        <input type='text' name='dev_id' id='dev_id' maxlength="10" size="72">
         <br>
         <br>
-        <input type='submit' value='Upload'>&nbsp;&nbsp;<a class="btn btn-danger" href='/posts' >Back</a>
+        Developer key:<br>
+        <input type='text' name='dev_key' id='dev_key' maxlength="10" size="72">
+        <br>
+        <br>
+        Project Name:<br>
+        <input type='text' name='title' id='title' maxlength="10" size="72">
+        <br>
+        <br>
+        Developer:<br>
+         <input type='text' name='author' id='author' maxlength="10" size="72">
+        <br>
+        <br>
+        Description:<br>
+        <textarea name='content' rows="5" cols="75"></textarea>
+        <br>
+        <br>
+        Github URL:<br>
+        <textarea name='github' rows="2" cols="75"></textarea>
+        <br>
+        <br>
+        <input type='submit' value='Upload' class="btn btn-danger">&nbsp;&nbsp;<a class="btn btn-primary" href='/posts' >Back</a>
     </form>
     <hr>
 {% endblock %}

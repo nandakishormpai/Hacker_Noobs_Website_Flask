@@ -7,9 +7,53 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <style>
+        .bg {
+            /* The image used */
+            background-image: url("https://cdn.pixabay.com/photo/2016/04/12/22/35/watercolour-1325656_960_720.jpg");
+            /* Full height */
+            height: 100%;
+
+            /* Center and scale the image nicely */
+            background-repeat:no-repeat;
+            -webkit-background-size:cover;
+            -moz-background-size:cover;
+            -o-background-size:cover;
+            background-size:cover;
+            background-position:center;
+            }
+        .jumbotron {
+                    background:none;
+                               
+                }
+        .who{
+                    margin-bottom: 0px;
+                    margin-top: 10px;
+            }
+        .disc{
+                    margin-top:0px;
+                    padding:25px;
+                    border: 2px solid black;
+                    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+                    
+            }
+        .git{
+                    margin: 20px;
+            }
+        .content{
+            padding:5px 20px 10px 20px;
+            border: 1px solid black;
+            margin:25px 10px 25px 10px;
+        }
+        .form{
+            font-weight: bold;
+            font-size: 20px;
+        }
+    </style>
 </head>
 
-<body>
+<body class="bg">
     <nav class="navbar navbar-dark bg-dark">
         <a class="navbar-brand" href="/">HACKER NOOBS</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample01"
