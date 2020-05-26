@@ -5,11 +5,23 @@
 {% endblock %}
 
 {% block body %}
-<h1>All Posts</h1>
+<h1>HACKER NOOBS Projects</h1>
 
     <hr>
-    <h2>Create New Blog Post:</h2>
+    <h2>Add Your Projects Here if you are a member</h2>
+    {% with messages = get_flashed_messages()%}
+        {% if messages%}
+            {% for message in messages %}
+                <h3>{{ message }}</h3>
+            {% endfor %}
+            <h4><i>If you are not a developer you cannot upload your Project !</i></h4>
+        {% endif %}
+    {% endwith %}
     <form action='/posts' method='POST'>
+        Developer id:<input type='text' name='dev_id' id='dev_id' >
+        <br>
+        Developer key:<input type='text' name='dev_key' id='dev_key'>
+        <br>
         Project Name: <input type='text' name='title' id='title'>
         <br>
         Developer: <input type='text' name='author' id='author'>
@@ -18,7 +30,7 @@
         <br>
         Github URL: <input type='text' name='github' id='github'>
         <br>
-        <input type='submit' value='Post'>
+        <input type='submit' value='Upload'>
     </form>
     <hr>
 

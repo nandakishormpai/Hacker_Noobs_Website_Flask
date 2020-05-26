@@ -1,9 +1,10 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect,flash
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///posts.db'
+app.config['SECRET_KEY'] = '2166fsfsdfdsfthesd'
 db = SQLAlchemy(app)
 
 class BlogPost(db.Model):
@@ -28,21 +29,34 @@ def posts():
         post_title = request.form['title']
         post_content = request.form['content']
         post_author = request.form['author']
-        post_github=request.form['github']       
-        new_post = BlogPost(title=post_title, content=post_content, author=post_author, github=post_github)
-        db.session.add(new_post)
-        db.session.commit()
-        return redirect('/posts')
+        post_github=request.form['github'] 
+        if(request.form['dev_id']=="noobhacker001"  and  request.form['dev_key']=="!123hack456me!") :
+            new_post = BlogPost(title=post_title, content=post_content, author=post_author, github=post_github)
+            db.session.add(new_post)
+            db.session.commit()
+            return redirect('/posts')     
+        else:
+            flash('Invalid Developer Credentials !', 'danger') 
+            all_posts = BlogPost.query.order_by(BlogPost.date_posted).all()
+            return render_template('posts.html', posts=all_posts)
     else:
         all_posts = BlogPost.query.order_by(BlogPost.date_posted).all()
         return render_template('posts.html', posts=all_posts)
 
-@app.route('/posts/delete/<int:id>')
+@app.route('/posts/delete/<int:id>' , methods=['GET', 'POST'])
 def delete(id):
     post = BlogPost.query.get_or_404(id)
-    db.session.delete(post)
-    db.session.commit()
-    return redirect('/posts')
+    if request.method == 'POST':
+        if(request.form['dev_id']=="noobhacker001"  and  request.form['dev_key']=="!123hack456me!") :
+            post = BlogPost.query.get_or_404(id)
+            db.session.delete(post)
+            db.session.commit()
+            return redirect('/posts')
+        else:
+            flash('Invalid Developer Credentials !', 'danger')     
+
+    return render_template('delete.html', post=post)
+
 
 @app.route('/posts/edit/<int:id>', methods=['GET', 'POST'])
 def edit(id):
@@ -54,10 +68,12 @@ def edit(id):
         post.author = request.form['author']
         post.content = request.form['content']
         post.github = request.form['github']
-        db.session.commit()
-        return redirect('/posts')
-    else:
-        return render_template('edit.html', post=post)
+        if(request.form['dev_id']=="noobhacker001"  and  request.form['dev_key']=="!123hack456me!") :
+            db.session.commit()
+            return redirect('/posts')
+        else:
+            flash('Invalid Developer Credentials !', 'danger')     
+    return render_template('edit.html', post=post)
 
 
 if __name__ == "__main__":
