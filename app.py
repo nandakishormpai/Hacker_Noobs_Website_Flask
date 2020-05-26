@@ -24,24 +24,8 @@ def index():
 
 @app.route('/posts', methods=['GET', 'POST'])
 def posts():
-
-    if request.method == 'POST':
-        post_title = request.form['title']
-        post_content = request.form['content']
-        post_author = request.form['author']
-        post_github=request.form['github'] 
-        if(request.form['dev_id']=="noobhacker001"  and  request.form['dev_key']=="!123hack456me!") :
-            new_post = BlogPost(title=post_title, content=post_content, author=post_author, github=post_github)
-            db.session.add(new_post)
-            db.session.commit()
-            return redirect('/posts')     
-        else:
-            flash('Invalid Developer Credentials !', 'danger') 
-            all_posts = BlogPost.query.order_by(BlogPost.date_posted).all()
-            return render_template('posts.html', posts=all_posts)
-    else:
-        all_posts = BlogPost.query.order_by(BlogPost.date_posted).all()
-        return render_template('posts.html', posts=all_posts)
+    all_posts = BlogPost.query.order_by(BlogPost.date_posted).all()
+    return render_template('posts.html', posts=all_posts)
 
 @app.route('/posts/delete/<int:id>' , methods=['GET', 'POST'])
 def delete(id):
@@ -75,6 +59,23 @@ def edit(id):
             flash('Invalid Developer Credentials !', 'danger')     
     return render_template('edit.html', post=post)
 
+@app.route('/posts/new', methods=['GET', 'POST'])
+def new():
+    if request.method == 'POST':
+        post_title = request.form['title']
+        post_content = request.form['content']
+        post_author = request.form['author']
+        post_github=request.form['github'] 
+        if(request.form['dev_id']=="noobhacker001"  and  request.form['dev_key']=="!123hack456me!") :
+            new_post = BlogPost(title=post_title, content=post_content, author=post_author, github=post_github)
+            db.session.add(new_post)
+            db.session.commit()
+            return redirect('/posts')
+        else:
+            flash('Invalid Developer Credentials !', 'danger') 
+            return render_template('new.html')
+    else:
+        return render_template('new.html')
 
 if __name__ == "__main__":
     app.run(debug=True)

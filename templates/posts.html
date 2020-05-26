@@ -5,35 +5,18 @@
 {% endblock %}
 
 {% block body %}
-<h1>HACKER NOOBS Projects</h1>
+<div>
+    <br>
+    <h1 style="display:inline">HACKER NOOBS Projects</h1>
+    <a style="display:inline" class="btn btn-success float-right" href="/posts/new" >+ New Post</a>
+</div>
 
     <hr>
-    <h2>Add Your Projects Here if you are a member</h2>
-    {% with messages = get_flashed_messages()%}
-        {% if messages%}
-            {% for message in messages %}
-                <h3>{{ message }}</h3>
-            {% endfor %}
-            <h4><i>If you are not a developer you cannot upload your Project !</i></h4>
-        {% endif %}
-    {% endwith %}
-    <form action='/posts' method='POST'>
-        Developer id:<input type='text' name='dev_id' id='dev_id' >
-        <br>
-        Developer key:<input type='text' name='dev_key' id='dev_key'>
-        <br>
-        Project Name: <input type='text' name='title' id='title'>
-        <br>
-        Developer: <input type='text' name='author' id='author'>
-        <br>
-        Description: <input type='text' name='content' id='content'>
-        <br>
-        Github URL: <input type='text' name='github' id='github'>
-        <br>
-        <input type='submit' value='Upload'>
-    </form>
+    <br>
+    <div>
+        <h1 style="display:inline">All Posts</h1>
+    </div>
     <hr>
-
     {% for post in posts %}
         <h2>{{ post.title }}</h2>
 
@@ -42,10 +25,11 @@
         {% else %}
             <h3>By: N/A</h3>
         {% endif %}
-        <a href="{{post.github}}">Github</a>
-        <p>{{ post.content }}</p>
-        <a href='/posts/delete/{{post.id}}'>Delete</a>
-        <a href='/posts/edit/{{post.id}}'>Edit</a>
+        <a href="{{post.github}}"><img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub" style="width:40px;height:40px;"></a>
+        <i class="fa fa-github"></i>
+        <p style="white-space:pre-wrap">{{ post.content }}</p>
+        <a class="btn btn-danger" href='/posts/delete/{{post.id}}'>Delete</a>
+        <a class="btn btn-primary" href='/posts/edit/{{post.id}}'>Edit</a>
         <hr>
     {% endfor%}
 

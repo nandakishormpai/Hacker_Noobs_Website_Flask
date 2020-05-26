@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>New Post</title> 
+{% endblock %}
+
+{% block body %}
+<h1>New Project</h1>
+
+    <hr>
+    {% with messages = get_flashed_messages()%}
+    {% if messages%}
+        {% for message in messages %}
+            <h3>{{ message }}</h3>
+        {% endfor %}
+        <h4><i>If you are not a developer you cannot upload your Project ! <a href="/posts">Click Here</a> to go back</i></h4>
+    {% endif %}
+    {% endwith %}
+    <form action='/posts/new' method='POST'>
+        Developer id:<input type='text' name='dev_id' id='dev_id' >
+        <br>
+        Developer key:<input type='text' name='dev_key' id='dev_key'>
+        <br>
+        Project Name: <input type='text' name='title' id='title'>
+        <br>
+        Developer: <input type='text' name='author' id='author'>
+        <br>
+        Description: <input type='text' name='content' id='content'>
+        <br>
+        Github URL: <input type='text' name='github' id='github'>
+        <br>
+        <br>
+        <input type='submit' value='Upload'>&nbsp;&nbsp;<a class="btn btn-danger" href='/posts' >Back</a>
+    </form>
+    <hr>
+{% endblock %}
