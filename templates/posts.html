@@ -7,11 +7,21 @@
 {% block body %}
 <div>
     <br>
-    <h1 style="display:inline"><b>HACKER NOOBS Projects</b></h1>
-    <a style="display:inline" class="btn btn-success float-right" href="/posts/new" >+ New Post</a>
+    <h1 style="display:inline" class="head"><b>HACKER NOOBS Projects</b></h1>
+    <a style="display:inline" class="btn btn-success float-right" href="/posts/new" ><b>+</b> New Project</a>
 </div>
 
     <hr style="height:2px; border-width:2px;">
+    <form action="/posts" method='POST' class="sort">
+        <label for="sort" style="display:inline" class="sort_label"><b>Sort By:   </b></label>
+        <select name="sort" id="sort" class="btn btn-success buttons">
+            <option value="date" selected><b>Date Added</b></option>
+            <option value="name"><b>Project Name</b></option>
+            <option value="dev"><b>Developer Name</b></option>
+        </select>&nbsp;
+        <input type="submit" value="Apply" style="display:inline" class="btn btn-primary buttons">
+      </form>
+    <br>
     {% for post in posts %}
     <div class="content">
         <h2 class="title"><b>{{ post.title }}</b></h2>

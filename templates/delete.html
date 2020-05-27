@@ -5,10 +5,12 @@
 {% endblock %}
 
 {% block body %}
-<h1>Deleting Project Info</h1>
+<br>
+<h1 class="head">Deleting Project Info</h1>
 
     <hr>
     <h2>Enter Developer Credentials to Delete</h2>
+    <br>
     {% with messages = get_flashed_messages()%}
         {% if messages%}
             {% for message in messages %}
@@ -17,17 +19,24 @@
             <h4> If you are not a developer you cannot Delete.   <a href="/posts">Click here</a>  to go back</h4>
         {% endif %}
     {% endwith %}
+    <br>
     <form action='/posts/delete/{{post.id}}' method='POST' class="form">
         Developer id:
-        <br><input type='text' name='dev_id' id='dev_id' maxlength="10" size="72">
+        <br><input type='text' name='dev_id' id='dev_id' maxlength="15" size="72">
         <br>
         <br>
         Developer key:
-        <br><input type='text' name='dev_key' id='dev_key' maxlength="10" size="72">
+        <br><input type='text' name='dev_key' id='dev_key' maxlength="15" size="72">
         <br>
         <br>
         <input type='submit' class="btn btn-danger" value='Delete'>
         &nbsp;  <a href="/posts" class="btn btn-primary">Go Back</a>
     </form>
     <hr>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
 {% endblock %}

@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect,flash
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+from sqlalchemy import desc
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///posts.db'
@@ -24,8 +25,16 @@ def index():
 
 @app.route('/posts', methods=['GET', 'POST'])
 def posts():
-    all_posts = BlogPost.query.order_by(BlogPost.date_posted).all()
-    return render_template('posts.html', posts=all_posts)
+    if request.method == 'POST':
+        if(request.form['sort']=="date"):
+            all_posts = BlogPost.query.order_by(desc(BlogPost.date_posted)).all()
+        elif(request.form['sort']=="name"):
+            all_posts = BlogPost.query.order_by(BlogPost.title).all()
+        else:
+            all_posts = BlogPost.query.order_by(BlogPost.author).all()
+    else:
+        all_posts = BlogPost.query.order_by(BlogPost.date_posted).all()
+    return render_template('posts.html',posts=all_posts)
 
 @app.route('/posts/delete/<int:id>' , methods=['GET', 'POST'])
 def delete(id):
@@ -76,6 +85,10 @@ def new():
             return render_template('new.html')
     else:
         return render_template('new.html')
+
+@app.route('/about')
+def about():
+    return render_template('about.html')
 
 if __name__ == "__main__":
     app.run(debug=True)

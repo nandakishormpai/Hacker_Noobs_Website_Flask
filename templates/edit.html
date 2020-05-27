@@ -6,7 +6,7 @@
 
 {% block body %}
 <br>
-<h1><b>Edit Project Info</b></h1>
+<h1 class="head"><b>Edit Project Info</b></h1>
 
     <hr>
     {% with messages = get_flashed_messages()%}
@@ -19,19 +19,19 @@
     {% endwith %}
     <form action='/posts/edit/{{post.id}}' method='POST' class="form">
         Developer id:<br>
-        <input type='text' name='dev_id' id='dev_id' maxlength="10" size="72">
+        <input type='text' name='dev_id' id='dev_id' maxlength="15" size="72">
         <br>
         <br>
         Developer key:
-        <br><input type='text' name='dev_key' id='dev_key' maxlength="10" size="72">
+        <br><input type='text' name='dev_key' id='dev_key' maxlength="15" size="72">
         <br>
         <br>
         Project Name:
-        <br><input type='text' name='title' id='title' value="{{post.title}}" maxlength="10" size="72">
+        <br><input type='text' name='title' id='title' value="{{post.title}}"  size="72">
         <br>
         <br>
         Developer:
-        <br><input type='text' name='author' id='author' value="{{post.author}}" maxlength="10" size="72">
+        <br><input type='text' name='author' id='author' value="{{post.author}}" maxlength="20" size="72">
         <br>
         <br>
         Description:
@@ -46,4 +46,7 @@
         &nbsp;  <a href="/posts" class="btn btn-primary">Go Back</a>
     </form>
     <hr>
+    <br>
+    <br>
+
 {% endblock %}
