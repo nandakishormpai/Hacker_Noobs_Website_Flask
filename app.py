@@ -3,12 +3,26 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from sqlalchemy import desc
 
+
+
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///posts.db'
+
+ENV='prod'
+
+if ENV == 'dev':
+    app.debug = True
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:mydatabase2020@localhost/projects'
+else:
+    app.debug = False
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://vxqdmdtdfeoedl:972a06ee7ba8aa6b694a8bfec467101aab106b9fa173ae283e95f61533eb8b83@ec2-34-195-169-25.compute-1.amazonaws.com:5432/d8ue131hobv0cf'
+
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = '2166fsfsdfdsfthesd'
 db = SQLAlchemy(app)
 
+
 class BlogPost(db.Model):
+    __tablename__ = 'projects'
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
     content = db.Column(db.Text, nullable=False)
@@ -16,8 +30,11 @@ class BlogPost(db.Model):
     github=db.Column(db.String(100), nullable=False)
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
-    def __repr__(self):
-        return 'Blog post ' + str(self.id)
+    def __init__(self,title,content,author,github):
+        self.title=title
+        self.content=content
+        self.author=author
+        self.github=github
 
 @app.route('/')
 def index():
@@ -91,4 +108,4 @@ def about():
     return render_template('about.html')
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
