@@ -1,0 +1,58 @@
+  
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Posts</title> 
+{% endblock %}
+
+{% block body %}
+<div>
+    <br>
+    <h1 style="display:inline" class="head mainhead"><b>HACKER NOOBS PROJECTS</b></h1>
+</div>
+<br>
+
+    <form action="/viewposts" method='POST' class="sort">
+        <label for="sort" style="display:inline" class="sort_label"><b>Sort By:   </b></label>
+        <select name="sort" id="sort" class="btn btn-success buttons shitkey">
+            <option value="date" ><b>Date Added</b></option>
+            <option value="name"><b>Project Name</b></option>
+            <option value="dev"><b>Developer Name</b></option>
+        </select>&nbsp;
+        <input type="submit" value="Apply" style="display:inline" class="btn btn-primary buttons shitkey">
+      </form>
+    <br>
+    <br>
+    <br>
+    {% for post in posts %}
+    {% if post== posts[-1] %}
+    <div class="lastcontent">
+        <h2 class="title"><b>{{ post.title }}</b></h2>
+        {% if post.author %}
+            <h3 style="font-size:20px;">Developer: {{ post.author }}</h3>
+        {% else %}
+            <h3>By: N/A</h3>
+        {% endif %}
+        <a  href="{{post.github}}"><img src="https://pngimg.com/uploads/github/github_PNG83.png" alt="GitHub" style="width:35px;height:35px;"></a>
+        <br>
+        <br>
+        <p style="font-size:20px;" >{{ post.content }}</p>
+    </div>
+    {% else %}
+    <div class="content">
+        <h2 class="title"><b>{{ post.title }}</b></h2>
+        {% if post.author %}
+            <h3 style="font-size:20px;">Developer: {{ post.author }}</h3>
+        {% else %}
+            <h3>By: N/A</h3>
+        {% endif %}
+        <a  href="{{post.github}}"><img src="https://pngimg.com/uploads/github/github_PNG83.png" alt="GitHub" style="width:35px;height:35px;"></a>
+        <br>
+        <br>
+        <p style="font-size:20px;" >{{ post.content }}</p>
+    </div>
+    {% endif %}
+    
+    {% endfor%}
+
+{% endblock %}

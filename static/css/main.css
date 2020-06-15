@@ -1,0 +1,186 @@
+body {
+    font-family: sans-serif;
+}
+.bg {
+    /* The image used */
+    background-image: url("https://cdn.pixabay.com/photo/2016/04/12/22/35/watercolour-1325656_960_720.jpg");
+    /* Full height */
+    height: 100%;
+
+    /* Center and scale the image nicely */
+    background-repeat:no-repeat;
+    -webkit-background-size:cover;
+    -moz-background-size:cover;
+    -o-background-size:cover;
+    background-size:cover;
+    background-position:center;
+    background-attachment: fixed;
+    }
+.who{
+            margin-bottom: 0px;
+            margin-top: 10px;
+    }
+.disc{
+        padding:25px;
+        border: 2px solid black;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        width: 100%;
+        margin-top: 100px;
+        margin-bottom: 50px;
+        border: 2px black solid;        
+        font-size: 35px;    
+    }
+.git{
+            margin: 20px;
+    }
+.content,.lastcontent{
+    padding:5px 20px 10px 20px;
+    border: 2px solid black;
+    margin:25px 10px 25px 10px;
+    width: 80%;
+}
+.form{
+    font-weight: bold;
+    font-size: 20px;
+}
+.sort_label{
+    font-size: 20px;
+}
+.buttons{
+    font-weight: bolder;
+    font-style: italic;
+}
+@media (min-width: 992px)
+{
+
+    .head{
+        font-size: 30px;
+    }
+    .logo{
+        width: 30px;
+        height: 30px;
+    }
+    input[type=text],input[type=password],textarea{
+    font-size: 20px;
+    }
+    input[type=text],input[type=password],textarea{
+    width:60%;
+    }
+    .content{
+            position:relative;
+            float:left;
+            border: 2px solid black;
+            width: 31.3%;
+            height: 400px;
+            margin:1%;
+            overflow: auto;
+            
+    }
+    .lastcontent{
+            position:relative;
+            border: 2px solid black;
+            width: 31.3%;
+            height: 400px;
+            margin:1%;
+            overflow: auto;
+            clear:left;
+    }
+    footer{
+        margin-top: 10px;
+        font-size: 15px;
+    }
+    .postbut{
+        position:absolute;
+        bottom: 0;
+        margin-bottom: 10px; 
+    }
+    .navigator{
+        position: relative;
+    }
+    .logbut{
+        position: absolute;
+        right: 0;
+        margin-right: 2%;
+    }
+
+
+    
+}
+@media (min-width: 768px) and (max-width:991px)
+{
+    .title{
+        font-size: 30px;
+    }
+    .content,.lastcontent{
+        width: 90%;
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+
+    .head{
+        font-size: 25px;
+    }
+    .logo{
+        width: 25px;
+        height: 25px;
+    }
+    footer{
+        font-size: 12px;
+    
+    }
+    input[type=text],input[type=password],textarea{
+    font-size: 17px;
+    }
+    input[type=text],input[type=password],textarea{
+    width:70%;
+    }
+    .disc{
+        font-size: 25px;
+    }
+}
+@media(max-width:767px)
+{
+    .title{
+        font-size: 25px;
+    }
+    .content,.lastcontent{
+        width: 80%;
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+    .head{
+        font-size: 20px;
+    }
+    .logo{
+        width: 25px;
+        height: 25px;
+    }
+    footer{
+        font-size: 10px;
+    
+    }
+    input[type=text],input[type=password],textarea{
+    font-size: 15px;
+    }
+    input[type=text],input[type=password],textarea{
+    width:75%;
+    }
+    .disc{
+        font-size: 20px;
+        margin-top: 20px;
+        margin-bottom: 1px;
+    }
+}
+footer{
+    font-weight: 700;
+    margin-top: 10px;
+    margin-left: 12%;
+    margin-right: 12%;
+    margin-bottom: 10px;
+}
+.mainhead{
+    font-family: 'Times New Roman', Times, serif;
+}
+.jumbotron{
+    background: none;
+}

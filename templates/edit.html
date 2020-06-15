@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'devbase.html' %}
 
 {% block head %}
 <title>Edit Post</title> 
@@ -8,23 +8,9 @@
 <br>
 <h1 class="head"><b>Edit Project Info</b></h1>
 
-    <hr>
-    {% with messages = get_flashed_messages()%}
-        {% if messages%}
-            {% for message in messages %}
-                <h3>{{ message }}</h3>
-            {% endfor %}
-            <h4> If you are not a developer you cannot edit.   <a href="/posts">Click here</a>  to go back</h4>
-        {% endif %}
-    {% endwith %}
+    <br>
+    <div class="form-group purple-border">
     <form action='/posts/edit/{{post.id}}' method='POST' class="form">
-        Developer id:<br>
-        <input type='text' name='dev_id' id='dev_id' maxlength="15" size="72">
-        <br>
-        <br>
-        Developer key:
-        <br><input type='text' name='dev_key' id='dev_key' maxlength="15" size="72">
-        <br>
         <br>
         Project Name:
         <br><input type='text' name='title' id='title' value="{{post.title}}"  size="72">
@@ -42,11 +28,15 @@
         <br><textarea name='github' rows="2" cols="75">{{post.github}}</textarea>
         <br>
         <br>
-        <input type='submit' class="btn btn-danger" value='Save'>
-        &nbsp;  <a href="/posts" class="btn btn-primary">Go Back</a>
+        <input type='submit' class="btn btn-danger key" value='Save'>
+        &nbsp;  <a href="/posts" class="btn btn-primary key">Back</a>
     </form>
-    <hr>
+    </div>
+    <br>
+
+
     <br>
     <br>
+    
 
 {% endblock %}
