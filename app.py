@@ -1,9 +1,8 @@
-
 from flask import Flask, render_template, request, redirect,flash
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from sqlalchemy import desc
-
+from flask_login import UserMixin
 
 
 app = Flask(__name__)
@@ -28,7 +27,7 @@ class BlogPost(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
     content = db.Column(db.Text, nullable=False)
-    author = db.Column(db.String(20), nullable=False, default='N/A')
+    author = db.Column(db.String(100), nullable=False, default='N/A')
     github=db.Column(db.String(100), nullable=False)
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
@@ -38,13 +37,17 @@ class BlogPost(db.Model):
         self.author=author
         self.github=github
 
+class User(db.Model):
+    __tablename__ = 'users'
+    id=db.Column(db.Integer, primary_key=True)
+    email=db.Column(db.String(100), unique=True)
+    password=db.Column(db.String(100))
+    name=db.Column(db.String(100))
+
 @app.route('/')
 def index():
     return render_template('index.html')
 
-@app.route('/devhome')
-def devindex():
-    return render_template('devindex.html')
 
 @app.route('/posts', methods=['GET', 'POST'])
 def posts():
@@ -57,7 +60,7 @@ def posts():
             all_posts = BlogPost.query.order_by(BlogPost.author).all()
     else:
         all_posts = BlogPost.query.order_by(desc(BlogPost.date_posted)).all()
-    return render_template('devposts.html',posts=all_posts)
+    return render_template('posts.html',posts=all_posts)
 
 @app.route('/posts/delete/<int:id>' , methods=['GET', 'POST'])
 def delete(id):
@@ -115,18 +118,6 @@ def devlogin():
     else:
         return render_template('devlogin.html')
 
-@app.route('/viewposts', methods=['GET', 'POST'])
-def viewposts():
-    if request.method == 'POST':
-        if(request.form['sort']=="date"):
-            all_posts = BlogPost.query.order_by(desc(BlogPost.date_posted)).all()
-        elif(request.form['sort']=="name"):
-            all_posts = BlogPost.query.order_by(BlogPost.title).all()
-        else:
-            all_posts = BlogPost.query.order_by(BlogPost.author).all()
-    else:
-        all_posts = BlogPost.query.order_by(desc(BlogPost.date_posted)).all()
-    return render_template('viewposts.html',posts=all_posts)
 
 if __name__ == "__main__":
     app.run()
