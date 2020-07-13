@@ -11,13 +11,13 @@
     {% for message in messages %}
         <h3>{{ message }}</h3>
     {% endfor %}
-    <h4> If you are not a developer you cannot Delete.   <a href="/viewposts">Click here</a>  to View our Projects.</h4>
+    <h4> If you are not a developer you cannot Delete.   <a href="/posts">Click here</a>  to View our Projects.</h4>
 {% endif %}
 {% endwith %}
 <h1 class="who head mainhead"><b>Member Login</b></h1>
 <br>
 <form action='/devlogin' method='POST' class="form">
-    Developer id:
+    Developer Username:
     <br><input type='text' name='dev_id' id='dev_id' maxlength="15" size="72">
     <br>
     <br>

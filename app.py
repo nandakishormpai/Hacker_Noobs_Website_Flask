@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect,flash
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from sqlalchemy import desc
-from flask_login import UserMixin
+from flask_login import LoginManager,UserMixin,login_user,logout_user,login_required
 
 
 app = Flask(__name__)
@@ -12,13 +12,13 @@ ENV='prod'
 
 if ENV == 'dev':
     app.debug = True
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:mydatabase2020@localhost/projects'
+    app.config['SQLALCHEMY_DATABASE_URI'] = dev_db 
 else:
     app.debug = False
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://uqkdwjwwdqqrhl:dbf20d471cc1a309aad17eade45012f91f7947fa7bf15c7ea2ec87a800d6fc0d@ec2-35-153-12-59.compute-1.amazonaws.com:5432/d35c4l1tqigim0'
+    app.config['SQLALCHEMY_DATABASE_URI'] = prod_db 
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SECRET_KEY'] = '2166fsfsdfdsfthesd'
+app.config['SECRET_KEY'] = secret_key
 db = SQLAlchemy(app)
 
 
@@ -37,12 +37,20 @@ class BlogPost(db.Model):
         self.author=author
         self.github=github
 
-class User(db.Model):
+class User(UserMixin,db.Model):
     __tablename__ = 'users'
     id=db.Column(db.Integer, primary_key=True)
     email=db.Column(db.String(100), unique=True)
     password=db.Column(db.String(100))
     name=db.Column(db.String(100))
+
+login_manager=LoginManager()
+login_manager.init_app(app)
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
 
 @app.route('/')
 def index():
@@ -63,6 +71,7 @@ def posts():
     return render_template('posts.html',posts=all_posts)
 
 @app.route('/posts/delete/<int:id>' , methods=['GET', 'POST'])
+@login_required
 def delete(id):
     post = BlogPost.query.get_or_404(id)
     if request.method == 'POST':
@@ -75,6 +84,7 @@ def delete(id):
 
 
 @app.route('/posts/edit/<int:id>', methods=['GET', 'POST'])
+@login_required
 def edit(id):
     
     post = BlogPost.query.get_or_404(id)
@@ -90,6 +100,7 @@ def edit(id):
     return render_template('edit.html', post=post)
 
 @app.route('/posts/new', methods=['GET', 'POST'])
+@login_required
 def new():
     if request.method == 'POST':
         post_title = request.form['title']
@@ -110,13 +121,31 @@ def about():
 @app.route('/devlogin' , methods=['GET', 'POST'])
 def devlogin():
     if request.method == 'POST':
-        if(request.form['dev_id']=="noobhacker001"  and  request.form['dev_key']=="!123hack456me!") :
-            return redirect('/posts')
-        else:
+        name=request.form['dev_id']
+        print("hey")
+        password=request.form['dev_key']
+        user=User.query.filter_by(name=name).first()
+        print("hi")
+        if not user :
+            print("nameshit")
+            flash('Invalid Username !', 'danger') 
+            return render_template('devlogin.html')
+        elif not (password==user.password):
+            print("passwordshit")
             flash('Invalid Developer Credentials !', 'danger') 
             return render_template('devlogin.html')
+
+        login_user(user)
+
+        return render_template('index.html')
     else:
         return render_template('devlogin.html')
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return render_template('index.html')
 
 
 if __name__ == "__main__":

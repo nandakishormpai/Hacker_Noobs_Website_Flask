@@ -29,8 +29,12 @@
             <a class="nav-link" href="#">About</a>
           </li>
         </ul>
+        {% if not current_user.is_authenticated %}
         <button class="btn btn-danger navbar-btn logbut" onclick="location.href='/devlogin'">Member Log in</button>
-        <button class="btn btn-danger navbar-btn logbut" onclick="location.href='/'">Log out</button>
+        {% endif %}
+        {% if current_user.is_authenticated %}
+        <button class="btn btn-danger navbar-btn logbut" onclick="location.href='/logout'">Log out</button>
+        {% endif %}
     </nav>
     <div class="container">
         {% block body %} {% endblock %}

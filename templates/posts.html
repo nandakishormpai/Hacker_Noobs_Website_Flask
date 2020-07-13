@@ -9,7 +9,9 @@
 <div>
     <br>
     <h1 style="display:inline" class="head mainhead"><b>HACKER NOOBS Projects</b></h1>
+    {% if current_user.is_authenticated %}
     <a style="display:inline" class="btn btn-success float-right shitkey" href="/posts/new" ><b>+ New Project</b></a>
+    {% endif %}
 </div>
 
     <br>
@@ -38,10 +40,13 @@
         <br>
         <br>
         <p style="font-size:20px;" >{{ post.content }}</p>
+        {% if current_user.is_authenticated %}
         <div class="postbut">
             <a class="btn btn-danger shitkey" href='/posts/delete/{{post.id}}'>Delete</a>
             <a class="btn btn-primary shitkey" href='/posts/edit/{{post.id}}'>Edit</a>
         </div>
+        {% endif %}
+
     </div>
     {% else %}
     <div class="content">
@@ -55,10 +60,12 @@
         <br>
         <br>
         <p style="font-size:20px;" >{{ post.content }}</p>
+        {% if current_user.is_authenticated %}
         <div class="postbut">
             <a class="btn btn-danger shitkey" href='/posts/delete/{{post.id}}'>Delete</a>
             <a class="btn btn-primary shitkey" href='/posts/edit/{{post.id}}'>Edit</a>
         </div>
+        {% endif %}
     </div>
     {% endif %}
     
