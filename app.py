@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from sqlalchemy import desc
 from flask_login import LoginManager,UserMixin,login_user,logout_user,login_required
+import os
 
 
 app = Flask(__name__)
@@ -12,13 +13,13 @@ ENV='prod'
 
 if ENV == 'dev':
     app.debug = True
-    app.config['SQLALCHEMY_DATABASE_URI'] = dev_db 
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('dev_db')
 else:
     app.debug = False
-    app.config['SQLALCHEMY_DATABASE_URI'] = prod_db 
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('prod_db')
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SECRET_KEY'] = secret_key
+app.config['SECRET_KEY'] = os.getenv('secret_key')
 db = SQLAlchemy(app)
 
 
@@ -122,17 +123,13 @@ def about():
 def devlogin():
     if request.method == 'POST':
         name=request.form['dev_id']
-        print("hey")
         password=request.form['dev_key']
         user=User.query.filter_by(name=name).first()
-        print("hi")
         if not user :
-            print("nameshit")
             flash('Invalid Username !', 'danger') 
             return render_template('devlogin.html')
         elif not (password==user.password):
-            print("passwordshit")
-            flash('Invalid Developer Credentials !', 'danger') 
+            flash('Your Password is incorrect !', 'danger') 
             return render_template('devlogin.html')
 
         login_user(user)
