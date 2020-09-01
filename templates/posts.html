@@ -28,27 +28,6 @@
     <br>
     <br>
     {% for post in posts %}
-    {% if post== posts[-1] %}
-    <div class="lastcontent">
-        <h2 class="title"><b>{{ post.title }}</b></h2>
-        {% if post.author %}
-            <h3 style="font-size:20px;">Developer: {{ post.author }}</h3>
-        {% else %}
-            <h3>By: N/A</h3>
-        {% endif %}
-        <a  href="{{post.github}}"><img src="https://pngimg.com/uploads/github/github_PNG83.png" alt="GitHub" style="width:35px;height:35px;"></a>
-        <br>
-        <br>
-        <p style="font-size:20px;" >{{ post.content }}</p>
-        {% if current_user.is_authenticated %}
-        <div class="postbut">
-            <a class="btn btn-danger shitkey" href='/posts/delete/{{post.id}}'>Delete</a>
-            <a class="btn btn-primary shitkey" href='/posts/edit/{{post.id}}'>Edit</a>
-        </div>
-        {% endif %}
-
-    </div>
-    {% else %}
     <div class="content">
         <h2 class="title"><b>{{ post.title }}</b></h2>
         {% if post.author %}
@@ -67,7 +46,6 @@
         </div>
         {% endif %}
     </div>
-    {% endif %}
     
     {% endfor%}
 

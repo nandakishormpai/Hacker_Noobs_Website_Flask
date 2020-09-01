@@ -1,0 +1,43 @@
+  
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Posts</title> 
+{% endblock %}
+
+{% block body %}
+<div>
+    <br>
+    {% if flag %}
+    <h1 style="display:inline" class="head mainhead"><b>Search Results</b></h1>
+    {% endif %}
+    {% if current_user.is_authenticated %}
+    <a style="display:inline" class="btn btn-success float-right shitkey" href="/posts/new" ><b>+ New Project</b></a>
+    {% endif %}
+    {% with messages = get_flashed_messages()%}
+    {% if messages%}
+        {% for message in messages %}
+            <h3 class="head mainhead"><b><i>{{ message }}</i></b></h3>
+        {% endfor %}
+        <h4 class="head mainhead"> <b>Here are our projects</b> </h4>
+    {% endif %}
+    {% endwith %}
+</div>
+    <br>
+    {% for post in results %}
+    <div class="content">
+        <h2 class="title"><b>{{ post[1] }}</b></h2>
+        {% if post[3] %}
+            <h3 style="font-size:20px;">Developer: {{ post[3] }}</h3>
+        {% else %}
+            <h3>By: N/A</h3>
+        {% endif %}
+        <a  href="{{post[4]}}"><img src="https://pngimg.com/uploads/github/github_PNG83.png" alt="GitHub" style="width:35px;height:35px;"></a>
+        <br>
+        <br>
+        <p style="font-size:20px;" >{{ post[2] }}</p>
+    </div>
+    
+    {% endfor%}
+
+{% endblock %}
